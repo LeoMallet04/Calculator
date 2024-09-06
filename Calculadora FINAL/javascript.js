@@ -6,8 +6,7 @@ function insert(num){
     display.innerHTML = num;
    }else if(display.innerHTML.includes(".")){
     display.innerHTML += num;
-   }
-   
+   }   
 }
 function insertPercent(Str){
     var display = document.getElementById('conta').innerHTML;
