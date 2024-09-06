@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="javascript.js"></script>
+    
+
+</head>
+<body>
+    
+
+    <header>
+        <h1><center></center></h1>
+    </header>
+
+    <main>
+        <center>
+            <section> 
+            
+                <div class="calculator">
+                    <div class="display">
+                        
+                    </div>
+                    <div class="result">
+                        <p>=</p>
+                        <div class="conta" id="conta"> 
+                        </div>
+                    </div>
+                
+                    <div class="buttons">
+                        <div>
+                            <button class="button1" onclick="clearDisplay()">CE</button><button onclick="back()">C</button><button onclick="insertPercent()">%</button><button class="buttonPurple" onclick="insertCommand('/')">/</button>
+                        </div>
+                            <button onclick= "insert(7)">7</button><button onclick= "insert(8)">8</button><button onclick= "insert(9)">9</button><button class="buttonPurple" onclick="insertCommand('*')">X</button>
+                        </div>
+                        <div>
+                            <button onclick= "insert(4)">4</button><button onclick= "insert(5)">5</button><button onclick= "insert(6)">6</button><button class="buttonPurple" onclick="insertCommand('-')">-</button>
+                        </div>
+                         <div>
+                            <button onclick= "insert(1)">1</button><button onclick= "insert(2)">2</button><button onclick= "insert(3)">3</button><button class="buttonPurple" onclick="insertCommand('+')">+</button>
+                        </div>
+                        <div class="bottomCollum">
+                            <button onclick="inverse()">+/-</button><button onclick="insert(0)">0</button><button onclick="comma('.')">,</button><button class="buttonLightPurple" onclick="calculator()">=</button>
+                        </div>
+                    </div>
+                    
+                    <div class="space">
+
+                    </div>
+                </div>
+
+                
+                
+            </section>
+        </center>
+    </main>
+
+
+    
+</body>
+</html>
