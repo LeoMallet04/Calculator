@@ -21,7 +21,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: end;
-    margin-bottom: -100px;
+        margin-bottom: -100px;
     height: 606px;
     width: 356px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
@@ -81,7 +81,7 @@ p{
     align-items: end;
     height: 86px;
     width: 228px;
-    font-size: 65px;
+    font-size: 60px;
     color: white;
     text-align: end;
     border-style: none;
