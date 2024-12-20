@@ -6,12 +6,12 @@ function insert(num){
     if(displayText.innerHTML != "NaN" && displayText.innerHTML != "Error" ){
         if(displayText.innerHTML != 0 ){
             displayText.innerHTML += num;
-            adjustViewWithOverflow()
+            adjustViewByOverflow();
            }else if(displayText.innerHTML  == 0 && !displayText.innerHTML.includes('.')){
             displayText.innerHTML = num;
            }else if(displayText.innerHTML.includes(".")){
             displayText.innerHTML += num;
-            adjustViewWithOverflow()
+            adjustViewByOverflow();
         }
     }
  }
@@ -25,9 +25,9 @@ function insertPercent(){
 
 function insertCommand(str){
     if(displayText.innerHTML != "NaN" && displayText.innerHTML != "Error"){
-        if(!(/[+\-*/]/.test(displayText.innerHTML.slice(-1))) && displayText.innerHTML.slice(-1) != '.'){
+        if( !(/[+\-*/]/.test(displayText.innerHTML.slice(-1))) && displayText.innerHTML.slice(-1) != '.'){
             displayText.innerHTML += str
-            adjustViewWithOverflow()
+            adjustViewByOverflow();
         }else if(displayText.innerHTML == 0){
             displayText.innerHTML = 0;
         }
@@ -46,7 +46,7 @@ function calculator(){
     }
     if(displayText.innerHTML != "Error"){
         displayText.innerHTML = resultado;
-        adjustViewWithOverflow()
+        adjustViewByOverflow();
     }
     
 }
@@ -55,7 +55,7 @@ function inverse(){
     if(displayText.innerHTML != "Error" && !(/[+\-*/]/.test(displayText.innerHTML.slice(-1)))){
         signal = displayText.innerHTML * -1;
         displayText.innerHTML = signal;
-        adjustViewWithOverflow()
+        adjustViewByOverflow();
     }
 }
 
@@ -64,19 +64,22 @@ function back(){
         displayText.innerHTML = 0;
     }else if(displayText.innerHTML != "Error" && displayText.innerHTML != "NaN"){
         displayText.innerHTML = displayText.innerHTML.substring(0,displayText.innerHTML.length -1);
+        adjustViewByBack();
+        adjustViewByOverflow();
+        
     }
 }
 
 function comma(str){
     if (displayText.innerHTML.trim() === "") {
-        displnay.innerHTML = "";
+        display.innerHTML = "";
     }else if(!(/[+\-*/]/.test(displayText.innerHTML)) && (displayText.innerHTML.match(/\./g) || []).length >= 1){
         displayText.innerHTML.slice(-1);
     }else if((/[+\-*/]/.test(displayText.innerHTML)) && (displayText.innerHTML.match(/\./g) || []).length == 2){
         displayText.innerHTML = displayinnerHTML;
     }else if(displayText.innerHTML.slice(-1) !== str && (/[0-9]/.test(displayText.innerHTML.slice(-1)))) { 
         displayText.innerHTML += str;
-        adjustViewWithOverflow()
+        adjustViewByOverflow();
     }
 }
 function clearDisplay(){
@@ -90,14 +93,28 @@ function hasOverflow(){
     return displayText.scrollWidth > display.scrollWidth;
 }
 
-function adjustViewWithOverflow(){
+function hasSpace(){
+    return displayText.scrollWidth < display.scrollWidth && 
+    parseInt(window.getComputedStyle(displayText, null).getPropertyValue('font-size').slice(0, -2)) < 60;
+}
+
+function adjustViewByOverflow(){
+    let fontSize = parseInt(window.getComputedStyle(displayText, null).getPropertyValue('font-size').slice(0, -2));
+    let textHeight = displayText.scrollHeight;
     if(hasOverflow() == true){
-        let fontSize = parseInt(window.getComputedStyle(displayText, null).getPropertyValue('font-size').slice(0, -2));
-        let displayTextHeight = displayText.scrollHeight;
-        fontSize = fontSize - 10;
-        displayTextHeight -= 7;
-        displayText.style.fontSize = fontSize + "px";
-        displayText.style.height = displayTextHeight + "px";
+        fontSize = fontSize - 11;
+        textHeight -= 7;
+        setView(fontSize,textHeight);
+    }
+}
+
+function adjustViewByBack(){
+    let fontSize = parseInt(window.getComputedStyle(displayText, null).getPropertyValue('font-size').slice(0, -2));
+    let textHeight = displayText.scrollHeight;
+    if(hasSpace() == true){
+        fontSize = fontSize + 11;
+        textHeight += 7;
+        setView(fontSize,textHeight);
     }
 }
 
@@ -105,4 +122,12 @@ function adjustViewDefault(){
     displayText.style.fontSize = "60px";
     displayText.style.height = "80px";
     
+}
+
+function setView(size, height){
+    // alert(size+ "/ " +height);
+    if(size <= 60 && height <= 80){
+        displayText.style.fontSize = size + "px";
+        displayText.style.height = height + "px";
+    }
 }
