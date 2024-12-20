@@ -25,8 +25,7 @@ function insertPercent(){
 
 function insertCommand(str){
     if(displayText.innerHTML != "NaN" && displayText.innerHTML != "Error"){
-        if(displayText.innerHTML != 0 && 
-        !(/[+\-*/]/.test(displayText.innerHTML.slice(-1))) && displayText.innerHTML.slice(-1) != '.'){
+        if(!(/[+\-*/]/.test(displayText.innerHTML.slice(-1))) && displayText.innerHTML.slice(-1) != '.'){
             displayText.innerHTML += str
             adjustViewWithOverflow()
         }else if(displayText.innerHTML == 0){
@@ -38,7 +37,9 @@ function insertCommand(str){
 
 
 function calculator(){
-    displayAux.innerHTML = displayText.innerHTML;
+    if(!(/[+\-*/]/.test(displayText.innerHTML.slice(-1)))){
+        displayAux.innerHTML = displayText.innerHTML;
+    }
     let resultado = eval(displayText.innerHTML);
     if(eval(displayText.innerHTML) == "Infinity"){
         resultado = "Error";
@@ -47,7 +48,6 @@ function calculator(){
         displayText.innerHTML = resultado;
         adjustViewWithOverflow()
     }
-    alert(hasOverflow());
     
 }
 
