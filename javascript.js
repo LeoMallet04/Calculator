@@ -6,11 +6,13 @@ function insert(num){
     if(displayText.innerHTML != "NaN" && displayText.innerHTML != "Error" ){
         if(displayText.innerHTML != 0 ){
             displayText.innerHTML += num;
+            adjustViewBySpace();    
             adjustViewByOverflow();
            }else if(displayText.innerHTML  == 0 && !displayText.innerHTML.includes('.')){
             displayText.innerHTML = num;
            }else if(displayText.innerHTML.includes(".")){
             displayText.innerHTML += num;
+            adjustViewBySpace();
             adjustViewByOverflow();
         }
     }
@@ -27,6 +29,7 @@ function insertCommand(str){
     if(displayText.innerHTML != "NaN" && displayText.innerHTML != "Error"){
         if( !(/[+\-*/]/.test(displayText.innerHTML.slice(-1))) && displayText.innerHTML.slice(-1) != '.'){
             displayText.innerHTML += str
+            adjustViewBySpace();
             adjustViewByOverflow();
         }else if(displayText.innerHTML == 0){
             displayText.innerHTML = 0;
@@ -46,6 +49,7 @@ function calculator(){
     }
     if(displayText.innerHTML != "Error"){
         displayText.innerHTML = resultado;
+        adjustViewBySpace();
         adjustViewByOverflow();
     }
     
@@ -55,6 +59,7 @@ function inverse(){
     if(displayText.innerHTML != "Error" && !(/[+\-*/]/.test(displayText.innerHTML.slice(-1)))){
         signal = displayText.innerHTML * -1;
         displayText.innerHTML = signal;
+        adjustViewBySpace();
         adjustViewByOverflow();
     }
 }
@@ -64,7 +69,7 @@ function back(){
         displayText.innerHTML = 0;
     }else if(displayText.innerHTML != "Error" && displayText.innerHTML != "NaN"){
         displayText.innerHTML = displayText.innerHTML.substring(0,displayText.innerHTML.length -1);
-        adjustViewByBack();
+        adjustViewBySpace();
         adjustViewByOverflow();
         
     }
@@ -79,6 +84,7 @@ function comma(str){
         displayText.innerHTML = displayinnerHTML;
     }else if(displayText.innerHTML.slice(-1) !== str && (/[0-9]/.test(displayText.innerHTML.slice(-1)))) { 
         displayText.innerHTML += str;
+        adjustViewBySpace();
         adjustViewByOverflow();
     }
 }
@@ -108,7 +114,7 @@ function adjustViewByOverflow(){
     }
 }
 
-function adjustViewByBack(){
+function adjustViewBySpace(){
     let fontSize = parseInt(window.getComputedStyle(displayText, null).getPropertyValue('font-size').slice(0, -2));
     let textHeight = displayText.scrollHeight;
     if(hasSpace() == true){
